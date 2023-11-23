@@ -1,0 +1,27 @@
+comandos git 
+
+git init  -- inicializa sincronizacion de carpeta 
+git status -s --revisa status de carpeta 
+
+git config --global user.name  --> ingresar el usuario
+git config user.name -->cd  obtiene el usuario 
+$ git config -- init.deafultbranch nombre  --> cambiar el nombre de la principal
+
+$ git init  --> inicializa el proyecto para versionar
+
+
+mkdir --crea una carpeta nueva desde la pocision de donde se encuentra
+
+ls -> muestra el contenido del direcctorio
+
+cd.. -> nos permite regresar de un direcctorio
+
+cd ..-> te permite regresar al directorio raiz
+
+rmdir -> remover archivo / caperta eliminar
+
+git add  --> agregar archivos al repositorio
+
+git commit -m  --> agregar commit la confirmacion d eun cambio junto a su mensaje de confirmacion
+
+git log  --> muestra el historial de commit 

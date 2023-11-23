@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragmentos/layaout :: head" > 
+</head>  <!-- th:insert="fragmentos/head :: head" -->
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+  		   <ul th:replace="fragmentos/layaout :: navbar"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+  		<nav th:replace="fragmentos/layaout :: nav"> </nav>
+
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" >
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                       
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-2 col-md-12 mb-4"></div>
+                        <div class="col-xl-8 col-md-12 mb-4">
+
+                            <div class="row">
+
+<!--                                   <div class="col-xl-1 col-md-4 mb-4"></div> -->
+                                <div class="col-xl-4 col-md-4 mb-4">
+                                    <div class="card border-left-primary shadow h-100 py-2">
+                                   <div class="card-header">
+                                     Estacionamientos/Usuarios
+                                   </div>
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+
+                                                    <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                        <div class="form-group">
+                                                            <label for="rol"> Selecciona  tabla</label>    
+                                                            <select class="form-control" id="ver" name="sellist1">
+                                                              <option>selecione una opcion</option>
+                                                              <option value="estacionamiento">ESTACIONAMIENTOS</option>
+                                                              <option value="empleado" >EMPLEADOS</option>
+                                                              
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                 <div class="col-xl-1 col-md-4 mb-4"></div> -->
+
+                                <div class="col-xl-4 col-md-4 mb-4">
+                                
+                                  
+                                   <a type="buttons" href="#"  id="newEstacionamiento"> 
+                                     <div class="card border-left-primary shadow h-100 py-2">
+                                      <div class="card-header text-black1" >
+	                                    <div class="h6  text-gray-800">Agregar Nuevo Estacionamiento</div> 
+	                                   </div>
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                
+                                                <div class="col mr-2">
+                                                   
+                                                    <div class="H4 mb-1 py-4 text-gray-800"> ESTACIONAMIENTO</div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <i class="	fas fa-car-alt fa-2x text-gray-300"></i>
+                                                    <i class="	fas fa-plus fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    </a>
+                                </div>
+<!--                                 <div class="col-xl-1 col-md-4 mb-4"></div> -->
+                                <div class="col-xl-4 col-md-4 mb-4">
+                                
+                                
+                                
+                               <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-header">
+                                    <div class="h6  text-black1">Agregar Nuevo Empleado</div> 
+
+                                </div>
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+
+                                                    <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                        <div class="form-group">
+                                                            <label for="rol"> Selecciona El Rol</label>                                                          
+                                                            <select class="form-control" id="roles" name="sellist2">
+                                                            </select>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-xl-2 col-md-12 mb-4"></div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xl-1 col-md-1 mb-4"></div>
+                        <div class="col-xl-10 col-md-10 mb-4">
+                          <h5 class="text-center text-black1" id="texto"></h5> 
+                          <h5 class="text-center text-black1" id="textoError"></h5>  
+                            <div class="verEstacionamiento" id="verEstacionamiento">
+                                <div class="table-responsive" id="tabla">
+                                    <table class="table table-sm" id="tableEstacionamiento" style='width:100%'>
+                                        <thead>
+                                          <tr>
+                                            <th>Id</th>                                           
+                                            <th>Direccion</th>
+                                            <th>Tarifa</th>
+                                            <th>Pension Auto Chico</th>
+                                            <th>PensionAuto Grande</th>
+                                             <th>Tipo Cobro</th>
+                                             <th>Acciones</th>
+                                              
+                                          </tr>
+                                        </thead>
+										<tfoot>
+										<tr>
+										 <th>Id</th>                                           
+                                            <th>Direccion</th>
+                                            <th>Tarifa</th>
+                                            <th>Pension Auto Chico</th>
+                                            <th>PensionAuto Grande</th>
+                                             <th>Tipo Cobro</th>
+                                             <th>Acciones</th>
+                                            
+                                             </tr>
+										</tfoot>
+                                      </table>
+                                </div>
+                            </div>
+                            
+                             <div class="verEmpleados" id="verEmpleados">
+                                <div class="table-responsive" id="tabla">
+                                    <table class="table" id="tableEmpleados">
+                                        <thead>
+                                          <tr>
+                                         
+                                            <th>Nombre</th>
+                                            <th>Usuario</th>
+                                            <th>Rol</th>
+                                            <th>Estacionamiento</th>
+                                            <th>Status</th>
+                                               <th>Acciones</th>
+                                          </tr>
+                                        </thead>
+										<tfoot>
+										<tr>
+										 
+                                            <th>Nombre</th>
+                                            <th>Usuario</th>
+                                            <th>Rol</th>
+                                            <th>Estacionamiento</th>
+                                            <th>Status</th>
+                                               <th>Acciones</th>
+                                             </tr>
+										</tfoot>
+                                      </table>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                             
+                                                             <!-- -----------------       FORMULARIO PARA AGREGAR ESTACIONAMIENTO  -->
+                             <div class="container-fluid" id="formEstacionamiento">
+                             
+                                 <div class="h3 mb-1 py-4 text-primary text-center">Favor de Ingresar los siguientes Datos</div>
+                                
+                                                    
+                                    <form id="registraEstacionamiento">
+
+                                        <!-- Columna Nombre y Dirección -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="nombre">Nombre:</label>
+                                                <input type="text" class="form-control texto1" name="nombre" id="nombre" placeholder="nombre del estacionamiento">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="direccion">Direccion:</label>
+                                                <input type="text" class="form-control texto1"  name="direccion" id="direccion" placeholder="Direccion">
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Columna Hora y Tipo Cobro (Select) -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                <label for="hora">Hora:</label>
+                                                <input type="text" class="form-control hora" id="hora"  name="hora" placeholder="Hora">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="tipoCobro">Tipo Cobro:</label>
+                                                <select class="form-control" id="tipoCobro" name="tipoCobro">
+                                                    <option value="0">Selecciona Tipo de cobro</option>
+                                                    <option value="h">Hora</option>
+                                                    <option value="a"> Hora/Promocion(Automatica)</option>
+                                                    <option value="h*p">(Hora*Hora)/ (Promocion*Promocion)</option>
+                                                </select>
+                                            </div>
+                                             <div class="form-group col-md-4">
+                                                <label for="boletoPerdido">Boleto Perdido:</label>
+                                                <input type="text" class="form-control numero" id="boletoPerdido"  name="boletoPerdido" placeholder="Costo de boleto perdido">
+                                            </div>
+                                        </div>
+                                        
+
+                                
+                                        <!-- Columna Fracciones -->
+                                        <div class="form-group">
+                                            <h5 class="text-center text-black1" id="textoFraciones"></h5>   
+                                            <label>Fracciones:</label>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <input type="text" class="form-control numero" name="fraccion1" id="fraccion1" placeholder="Fraccion1">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <input type="text" class="form-control numero" name="fraccion2" id="fraccion2" placeholder="Fraccion2">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <input type="text" class="form-control numero" name="fraccion3" id="fraccion3" placeholder="Fraccion3">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <input type="text" class="form-control numero" name="fraccion4" id="fraccion4" placeholder="Fraccion4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Columna Horas Promoción e Importe Promoción -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="horasPromocion">Horas Promoción:</label>
+                                                <input type="text" class="form-control hora"  id="horasPromocion" name="horasPromocion" placeholder="Horas de Promocion">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="importePromocion">Importe Promoción:</label>
+                                                <input type="text" class="form-control numero" id="importePromocion" name="importePromocion" placeholder="Impórte de la Promocion">
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Columna Pension AutoChico y Pension Auto Grande -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="pensionAutoChico">Pension AutoChico:</label>
+                                                <input type="text" class="form-control numero" id="pensionAutoChico" name="pensionAutoChico">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="pensionAutoGrande">Pension Auto Grande:</label>
+                                                <input type="text" class="form-control numero" id="pensionAutoGrande"  name="pensionAutoGrande" >                                  
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Columna Usuario, Password y Confirmar Password -->
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                            </div>
+                                            <div class="form-group col-md-4 text-center">
+                                                <label for="usuario">Usuario:</label>
+                                                <input type="text" class="form-control  validaUser" id="usuario"  name="usuario" placeholder="UserName">
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                           </div>
+                                        </div>
+                                         <div class="row">
+                                           
+                                           <div class="col-lg-4"></div>
+                                           <div class="col-lg-2"> 
+                                              <button type="submit" class="btn btn-primary   btn-block" id="btn_submit">Guardar</button> 
+                                                                                                                                                                                   
+                                           </div>
+                                           <div class="col-lg-2">
+                                            <button type="button" class="btn btn-danger    btn-block" id="btn_cancelar">Cancelar</button>  
+                                           </div> 
+                                           
+                                           <div class="col-lg-4"></div> 
+                                        </div>
+                                    </form>
+                             
+                             </div>
+                            <!-- ---------------------///  FIN DE FORMULARIO ESTACIONAMIENTO--------- -->
+                                                            <!----------------------FORMULARIO DE EMPLEADO -------------------------->
+                              <div class="container-fluid" id="formEmpleado">                   
+                                    <div class="row">
+                                       <div class="col-lg-2 col-md-2"></div>
+                                       <div class="col-lg-8 col-md-8">
+                                     <form id="registraEmpleado" class="registra">
+
+                                             <!-- Columna Nombre y Dirección -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="nombreE">Nombre:</label>
+                                                    <input type="text" class="form-control texto1   nombre" name="nombre" id="nombrE" placeholder="nombre del Empleado">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="apellidos">Apellidos:</label>
+                                                    <input type="text" class="form-control texto1  apellidos"  name="apellidos" id="apellidos" placeholder="Apellidos">
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Columna Hora y Tipo Cobro (Select) -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="usuariolts">Usuario disponible:</label>
+                                                    <select class="form-control " id="idUser" name="usuario">
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="rol">Rol</label>
+                                                    <input type="text" class="form-control hora" id="rol"  name="rol" placeholder="Rol" disabled>
+                                                </div>
+                                            </div>                               
+                                    
+                                            <!-- Columna Usuario, Password y Confirmar Password -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="estacionamiento">Estaciomamiento:</label>
+                                                    <input type="text" class="form-control texto1" id="idEstacionamiento"  name="estacionamiento" placeholder="Estacionamiento" disabled>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="password">Password:</label>
+                                                    <input type="password" class="form-control pass password" id="password" name="password" placeholder="password">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="confirmarPassword">Confirmar Password:</label>
+                                                    <input type="password" class="form-control pass confirmarPassword" id="confirmarPassword" name="confirmarPassword" placeholder="confirm Password" >
+                                                </div>
+                                            </div>
+                                             <div class="row">
+                                                   
+                                                   <div class="col-lg-4"></div>
+                                                   <div class="col-lg-2"> 
+                                                      <button type="submit" class="btn btn-primary   btn-block  btn_save" id="btn_submitE">Guardar</button>                                                               
+                                                                               
+                                                   </div>
+                                                   <div class="col-lg-2">
+                                                    <button type="button" class="btn btn-danger    btn-block" id="btn_cancelarE">Cancelar</button>  
+                                                   </div> 
+                                                   
+                                                   <div class="col-lg-4"></div> 
+                                                </div>
+
+                                      </form>
+
+                                     </div>
+                                     <div class="col-lg-2 col-md-2"></div>
+                                 </div>
+                             </div>
+                            <!--------------------- FIN -FORMULARIO DE EMPLEADO -------------------------->
+                            <!----------------------FORMULARIO DE ADMINISTRADOR -------------------------->
+                              <div class="container-fluid" id="formEmpleadoAdmin">                   
+                                    <div class="row">
+                                       <div class="col-lg-2 col-md-2"></div>
+                                       <div class="col-lg-8 col-md-8">
+                                     <form id="registraEmpleadoAdmin" class="registra">
+
+                                             <!-- Columna Nombre y Dirección -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="nombreU">Nombre:</label>
+                                                    <input type="text" class="form-control texto1 nombre" name="nombre" id="nombrA" placeholder="nombre del Empleado">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="apellidosA">Apellidos:</label>
+                                                    <input type="text" class="form-control texto1 apellidos"  name="apellidos" id="apellidosA" placeholder="Apellidos">
+                                                </div>
+                                            </div>
+                                
+                                            <!-- Columna Hora y Tipo Cobro (Select) -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                   <label for="usuarioA">Usuario:</label>
+                                                    <input type="text" class="form-control texto1 validaUser  usuario"  name="usuario" id="usuarioA" placeholder="Usuario">                                             
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="rolA">Rol:</label>
+                                                    <input type="text" class="form-control " id="rolA"  name="rol"   value="ADMINISTRADOR" disabled>
+                                                </div>
+                                            </div>                               
+                                    
+                                            <!-- Columna Usuario, Password y Confirmar Password -->
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="estacionamientoA">Estacionamiento:</label>
+                                                    <input type="text" class="form-control estacionamiento" id="estacionamientoA"  name="estacionamiento"   value="MATRIZ" disabled>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="passwordA">Password:</label>
+                                                    <input type="password" class="form-control pass1  password" id="passwordA" name="password" placeholder="password">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="confirmarPasswordA">Confirmar Password:</label>
+                                                    <input type="password" class="form-control pass1  confirmarPassword" id="confirmarPasswordA" name="confirmarPassword" placeholder="confirm Password" >
+                                                </div>
+                                            </div>
+                                             <div class="row">
+                                                   
+                                                   <div class="col-lg-4"></div>
+                                                   <div class="col-lg-2"> 
+                                                      <button type="submit" class="btn btn-primary   btn-block btn_save" id="btn_submitA">Guardar</button>                                
+                                                   </div>
+                                                   <div class="col-lg-2">
+                                                    <button type="button" class="btn btn-danger    btn-block  " id="btn_cancelarA">Cancelar</button>  
+                                                   </div>                                                  
+                                                   <div class="col-lg-4"></div> 
+                                                </div>
+                                      </form>
+
+                                     </div>
+                                     <div class="col-lg-2 col-md-2"></div>
+                                 </div>
+                             </div>
+
+                            <!--------------------- FIN -FORMULARIO DE ADMINISTRADOR -------------------------->
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-xl-1 col-md-1 mb-4"></div>
+
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+                
+                
+
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+
+    <footer th:replace="fragmentos/layaout :: footer" ></footer>
+    <script th:src="@{/js/jquery-ui.js}"></script>
+     <script th:src="@{/java-scrip/admin.js}"></script>
+
+</body>
+
+</html>

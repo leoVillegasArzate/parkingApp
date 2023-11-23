@@ -1,0 +1,71 @@
+package com.parking.utileria;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserAppDetailsService  implements UserDetailsService {
+
+	
+    @Autowired
+    DataSource dataSource;
+    @Autowired
+    PasswordEncoder encoder;
+    
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+		Connection connection=null;
+		PreparedStatement preparedStatement= null;
+		ResultSet resultSet=null;
+		
+		String name,pass,rol;
+		try {
+			connection=dataSource.getConnection();
+			 preparedStatement=connection.prepareStatement("select u.user_name as usuario, em.pass as  password, u.activo as estatus ,p.rol as rol "
+			 		+ "from empleado em\r\n"
+			 		+ "inner join usuario u on(u.id=em.id_usuario)\r\n"
+			 		+ "inner join perfil p on (p.id=u.id_perfil) \r\n"
+			 		+ "where user_name=?");
+			 
+			 preparedStatement.setString(1, username);	 
+			 resultSet=preparedStatement.executeQuery();
+			 
+			 if (resultSet.next()) {
+				name=resultSet.getString("usuario");
+				pass=resultSet.getString("password");
+				rol=resultSet.getString("rol");
+				
+				System.out.println(name +" "+pass+" "+rol);
+
+				return User.withUsername(username).password(encoder.encode(pass)).roles(rol).build();
+				}else {
+				 
+				 throw new Exception("no hay");
+			 }
+			 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return null;
+	}
+
+}

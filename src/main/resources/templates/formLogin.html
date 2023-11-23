@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario de Inicio de Sesión</title>
+<!-- Incluye los archivos CSS de Bootstrap -->
+<link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet"
+	type="text/css">
+<link th:href="@{/estilos/login.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="container">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+	<div th:if="${param.error}">
+	<span class="text-danger" >Credeciales Incorrectas / o esta intentando ingresar con una session activa</span>
+	</div>
+	
+	<span class="text-danger" th:text="${sesion_error}"></span>
+    <!-- Icon -->
+    <div class="fadeIn first">
+    
+      <img th:src="@{/img/img.png}" id="icon" alt="User Icon" />
+      <h1>Parking App</h1>
+    </div>
+
+    <!-- Login Form -->
+      <form th:action="@{/login1}" method="post">
+      <input type="text" id="login" class="fadeIn second" name="username" placeholder="username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <span>ParkingApp &copy; Parking.com 2022 </span>
+    </div>
+
+  </div>
+</div>
+</div>
+  
+
+	<!-- Incluye los archivos JavaScript de Bootstrap (jQuery y Popper.js) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

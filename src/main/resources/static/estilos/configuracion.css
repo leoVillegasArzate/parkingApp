@@ -1,0 +1,17 @@
+  #promo{
+    display: none;
+  }
+
+  #promocionOf{
+  display: none;
+  }
+  #text{
+  color:black;
+  font-size: 15px;
+  }
+  
+  #inputError{
+  color:red;
+  font-size: 13px;
+  }
+  

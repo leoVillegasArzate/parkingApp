@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="fragmentos/layaout :: head" > 
+
+   
+</head>  <!-- th:insert="fragmentos/head :: head" -->
+ <link rel="stylesheet" th:href="@{/estilos/estilos-dashboard.css}">
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+       
+    <ul th:replace="fragmentos/layaout :: navbar"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+             <nav th:replace="fragmentos/layaout :: nav"> </nav>
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="contenido">
+                  <div   id="session" style="visibility: hidden;">                          
+                         <p>
+                           <strong id="hora" th:text="${session.cobro.hora}" ></strong>
+                           <strong id="fraccion1" th:text="${session.cobro.fraccion1}" ></strong>
+                           <strong id="fraccion2" th:text="${session.cobro.fraccion2}" ></strong>
+                           <strong id="fraccion3" th:text="${session.cobro.fraccion3}" ></strong>
+                           <strong  id="fraccion4"th:text="${session.cobro.fraccion4}" ></strong>
+                           <strong id="tienePromo"th:text="${session.cobro.promocion}" ></strong>
+                           <strong  id="horasPromo"th:text="${session.cobro.horasPromo}" ></strong>
+                           <strong  id="importePromo"th:text="${session.cobro.importePromo}" ></strong>
+                           <strong  id="tipo"th:text="${session.cobro.tipo}" ></strong>
+                           <strong id="idEstacionamiento" th:text="${session.user.idEstacionamiento}" ></strong>                                       
+                         </p>                  
+                   </div>
+                   
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-1 col-md-12 mb-0"></div>
+                        <div class="col-xl-10 col-md-12 mb-1 py-4">
+
+                            <div class="row">
+                                <div class="col-xl-4 col-md-12 mb-4">
+
+                                    <a type="buttons" href="#" data-toggle="modal" id="entrada">
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="h2 mb-0 font-weight-bold  text-primary py-4">Registrar
+                                                            Entrada 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <i class="fa fa-arrow-down fa-3x text-primary"></i>
+                                                        <i class="fas fa-car-alt fa-3x text-primary"></i>
+
+                                                    </div>
+
+                                                    
+                                                </div>
+                                                 <div class="text-center">Press ( F2 )</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-xl-4 col-md-12 mb-4">
+                                    <a type="buttons" href="#" id="salida">
+                                        <div class="card border-left-success shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+
+                                                        <div class="h2 mb-0 font-weight-bold  text-success py-4">Registrar
+                                                            Salida
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+
+                                                        <i class="fa fa-arrow-up fa-3x text-success"></i>
+                                                        <i class="fas fa-car-alt fa-3x text-success"></i>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="text-center text-success">Press  ( F4 )</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-xl-4 col-md-12 mb-4">
+                                    <a type="buttons" href="#" id="busqueda">
+                                        <div class="card border-left-warning shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="h2 mb-2 font-weight-bold  text-warning py-4">Busqueda
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <i class="fas fa-search fa-3x text-warning"></i>
+                                                        <i class="fas fa-car-alt fa-3x text-warning"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center text-warning">Press ( F8 )</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row"  id="contenidodasboard">
+
+                            <!-- Content Column -->
+                            <div class="col-xl-6  col-md-12 mb-3"> 
+
+                                <!-- Project Card Example -->
+                                <div class="card shadow mb-4 reloj">
+
+                                    <div class="card-header py-2  font-weight-bold text-center text-black1 boderd-text">
+                                   
+                                        <samp class="diaSemana  ">N&deg; Folio: <span id="folio">123456789987</span> </samp>
+
+                                    </div> 
+
+                                    <!-- Color System -->
+                                    <br>
+                                    <div class="row">
+    
+                                        <div class="col-lg-1 "> </div>
+                                        <div class="col-lg-10  py-2 ">
+                                            <div class="row py-1" >
+                                                <div class="col-lg-4 mb-4">
+                                                    <div class="card mb-2 bg-primary text-white shadow">
+                                                        <div class="card-body text-center ">
+                                                            <b> Entrantes</b>
+                                                            
+                                                            <div class="text-white"> <br><p id="entrantes">11111</p></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-lg-4 mb-4">
+                                                    <div class="card mb-2 bg-warning text-white shadow">
+                                                        <div class="card-body text-center">
+                                                            <b>Pendientes</b>
+                                                            <div class="text-white "><br><p id="pendientes">111111</p></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-lg-4 mb-4">
+                                                    <div class="card mb-2 bg-success text-white shadow">
+                                                        <div class="card-body text-center">
+                                                            <b>Salientes</b>
+                                                            <div class="text-white"><br><p id="salientes">111111</p></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 mb-2"> </div>
+                                    </div>
+                                </div>
+    
+    
+    
+                            </div>
+                            
+                                                        <!-- Content Column -->
+                            <div class="col-xl-6  col-md-12 mb-3">
+
+                                <!-- Project Card Example -->
+                                <div class="card shadow mb-4 reloj">
+
+                                    <div class="card-header py-2  font-weight-bold text-center text-black1 boderd-text">
+                                   
+                                        <samp id="diaSemana" class="diaSemana "></samp>
+                                        <samp id="dia" class="dia"></samp>
+                                        <samp class="de">de</samp>
+                                        <samp id="mes" class="mes"></samp>
+                                        <samp class="del">del</samp>
+                                        <samp id="anio" class="anio"></samp>
+
+                                    </div> 
+
+                                    <!-- Color System -->
+                                    <br>
+                                    <div class="row">
+    
+                                        <div class="col-lg-1 "> </div>
+                                        <div class="col-lg-10 col-md-10 py-3 ">
+                                            <div class="row py-1" >
+                                                <div class="col-lg-3 mb-4">
+                                                    <div class="card mb-2 card   text-white shadow hora ">
+                                                        <div class="card-body text-center ">
+                                                             <samp id="horas" ></samp>
+                                                                                                                      
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             <div class="col-lg-1 mb-4 h1 py-2 text-black">   <strong class="puntos">:</strong></div>
+												<div class="col-lg-3 mb-4">
+                                                    <div class="card mb-2  text-white shadow minutos">
+                                                        <div class="card-body text-center ">
+                                                           <samp id="minutos"></samp>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                  <div class="col-lg-1 mb-4 h1 py-2 text-black">   <strong class="puntos">:</strong></div>
+                                                <div class="col-lg-3 mb-4">
+                                                    <div class="card mb-2  text-white shadow segundos">
+                                                        <div class="card-body text-center ">
+                                                             <samp id="segundos"> </samp>
+                                                                                                                    
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<div class="col-lg-1 mb-4 py-4">   <samp id="ampm" class="ampm"></samp></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 mb-2"> </div>
+                                    </div>
+                                </div>
+    
+    
+    
+                            </div>
+                            <!-- ---------------------------------------------- -->
+                            
+                            
+
+                    </div>
+                    <div class="row" id="div_boton">
+                        <div class="col-lg-3 "></div>
+                        <div class="col-lg-6 ">
+						
+                            <a href="#" class="btn btn-info btn-block py-0 " id="pension">
+                                <div class="h4   fontawesome-free text-white   text-center py-3 mb-1">
+                                    <span class="icon text-white-50 ">
+                                        <i class="fas fa-users fa-1x "></i>
+                                    </span>
+                                    <span class="text "> <b>Generar Reporte</b> </span>
+                                </div>
+
+                            </a>
+                            
+                                 
+                                
+                        </div>
+                        <div class="col-lg-3 "></div>
+                    </div>
+
+                    <!-------------------------------------------------------------------------------->
+                    <!-- Modal -->
+                    <div class="modal fade " id="#" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Ingresa los Siguientes Datos</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+
+                                    <!---------------------------------------------- formulario ------------------------------------------------>
+                                    <form>
+                                        <div class="row">
+                                            <div class="col">
+                                                Nombre:<input type="text" class="form-control" placeholder="Nombre">
+                                            </div>
+                                            <div class="col">
+                                                Apellidos:
+                                                <input type="text" class="form-control" placeholder="Apellido Completo">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                Telefono:<input type="text" class="form-control" placeholder="Telefono">
+                                            </div>
+                                            <div class="col">
+                                                Rfc:
+                                                <input type="text" class="form-control" placeholder="Rfc">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                Coreeo Electronico:<input type="text" class="form-control"
+                                                    placeholder="@ example">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                Direccion:<input type="text" class="form-control"
+                                                    placeholder="Direccion">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                Marca Auto:<input type="text" class="form-control"
+                                                    placeholder="Marca del Auto">
+                                            </div>
+                                            <div class="col">
+                                                Modelo:
+                                                <input type="text" class="form-control" placeholder="Modelo del Auto">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                Placas:<input type="text" class="form-control" placeholder="Placas">
+                                            </div>
+                                            <div class="col">
+                                                Color:
+                                                <input type="text" class="form-control" placeholder="Color">
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group row">
+                                            <label for="inputPassword" class="col-sm-2 col-form-label">Importe</label>
+                                            <div class="col-sm-6">
+                                                <input type="password" class="form-control" id="inputPassword"
+                                                    placeholder="$$">
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <!----------------------------------------fin formulario -------------------------------------------------->
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Guardat Registro</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--------------------------------------------------------------------------------->
+
+                </div>
+                <!-- /.container-fluid -->
+                
+                                                <!-- --  DATA TABLE  DE AUTO CON BOLETO PERDIDO  -->
+				<div class=" container-fluid" id ="verAutosPerdidos">
+                        <div class="row">
+                         <div class="col-lg-1"> </div>
+                         <div class="col-lg-10"> 
+                         	<table class="table" id="tablaAutos">
+								<thead>
+									<tr>
+										<th>Marca</th>
+										<th>Placas</th>
+										<th>Color</th>
+										<th>Fecha Entrada</th>
+										<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+									</tr>
+									</thead>
+										<tfoot>
+											<tr>
+												<th>Marca</th>
+                                                <th>Placas</th>
+                                                <th>Color</th>
+                                                <th>Fecha Entrada</th>
+                                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+											</tr>
+										</tfoot>
+									</table>
+                         </div>
+                          <div class="col-lg-1"> </div>
+                        </div>						
+				</div>
+				<!-- ---------------------  FIN DE DATA TABLE ------------------------------------------ -->
+				
+				
+				<!-- cobro salida  -->
+		<div class=" container-fluid" id="cobrarBoletaje" >
+            <div class="row">
+                <div class="col-lg-1"> </div>
+                <div class="col-lg-10">
+                    <div class="row"> 
+                      <div class="col-xl-12 col-lg-12 col-md-12 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+
+                                    <div class="col-lg-12 mr-2">
+                                        <div class="text-lg-center font-weight-bold text-info text-uppercase mb-1">
+                                            MOSTRANDO LOS DATOS DEL AUTO A SALIR 
+                                        </div>
+                                             <br>
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-2"></div>
+                                            <div class="col-lg-8">
+                                            <form class="text-success formulario" id="btnRegistrarSalida">
+
+                                               <div class="form-group row">
+                                                  <div class="form-group col-md-3"></div>
+                                                <label for="marca" class="col-sm-3 col-form-label  font-weight-bold text-info"> N° FOLIO :</label>
+                                                <div class="col-sm-3">
+                                                  <input type="number" readonly class="form-control-plaintext"  id="folioSalida" name="folioSalida">
+                                                </div>
+                                               
+                                                <div class="form-group col-md-3"></div>
+                                              </div>
+                                               
+                                               
+                                                  <div class="form-group form-row">
+                                                    <div class="form-group col-md-6">
+                                                      <label for="fechaEntrada">Fecha y hora de Entrada:</label>
+                                                     <input type="text" readonly class="form-control-plaintext" id="fechaEntrada" name="fechaEntrada" >
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                      <label for="fechaSalida">Fecha y hora de Salida:</label>
+                                                     <input type="text" readonly class="form-control-plaintext" name="fechaSalida" id="fechaSalida">
+                                                    </div>
+                                                  </div>
+
+                                              <div class="form-group row">
+                                                <label for="marca" class="col-sm-5 col-form-label">Marca:</label>
+                                                <div class="col-sm-7">
+                                                  <input type="text" readonly class="form-control-plaintext" name="marca1" id="marca1" >
+                                                </div>
+                                              </div>
+
+                                              <div class="form-group row">
+                                                <label for="color" class="col-sm-5 col-form-label">Color:</label>
+                                                <div class="col-sm-7">
+                                                  <input type="text" readonly class="form-control-plaintext" name="color1" id="color1" >
+                                                </div>
+                                              </div>
+                                               <div class="form-group row">
+                                                <label for="placa" class="col-sm-5 col-form-label">Placas:</label>
+                                                <div class="col-sm-7">
+                                                  <input type="text" readonly class="form-control-plaintext" name="placa1" id="placa1" >
+                                                </div>
+                                              </div>
+                                               <div class="form-group row">
+                                                <label for="consumo" class="col-sm-5 col-form-label">Tiempo de consumo:</label>
+                                                <div class="col-sm-7">
+                                                  <input type="text" readonly class="form-control-plaintext" name="consumo" id="consumo">
+                                                    <input type="hidden"  readonly class="form-control-plaintext" name="statusPago" id="statusPago">
+                                                </div>
+                                              </div>
+
+                                                <div class="form-group row">
+                                                    <label for="importePago" class="col-sm-5 col-form-label">Importe por Consumo $:</label>
+                                                    <div class="col-sm-7">
+                                                         <input type="text" readonly class="form-control-plaintext" name="importePago" id="importePago" value="500.00">
+                                                    </div>
+                                              </div>
+
+                                              <div class="text-center ">
+                                                  <h5 id="mensaje"></h5>
+                                              </div>
+                                                
+                                                <div class="form-group row">
+                                                <label for="importe" class="col-sm-5 col-form-label">Importe Cobrado  $</label>
+                                                <div class="col-sm-7">
+                                                  <input type="text" class="form-control" name="importe" id="importe"  placeholder=" 0.00" value="" autocomplete="off">
+                                                   <input type="text" id="idEstacionamientoS" name="idEstacionamiento" style="visibility: hidden;">
+                                                </div>
+                                                </div>
+
+                                                 <div class="form-group row " id="cambioForm">
+                                                    <label for="cambio" class="col-sm-5 col-form-label">Cambio $: </label>
+                                                    <div class="col-sm-7">
+                                                         <input type="text" readonly class="form-control-plaintext"  name="cambio" id="cambio" placeholder=" 0.00">
+                                                        
+                                                         <input type="text" id="consumoFraccion" name="consumoFraccion" style="visibility: hidden;">                                                                                               
+                                                    </div>
+                                              </div>
+                                              
+                                               <div class="form-group row " >
+                                                    <label for="cambio" class="col-sm-5 col-form-label">Tipo Cobro:  </label>
+                                                    <div class="col-sm-7">
+                                                         <input type="text" readonly class="form-control-plaintext"  name="modoPago" id="modoPago">
+                                                                                                                                                                                                  
+                                                    </div>
+                                              </div>
+                                                <div class="row">
+                                                     <div class="col-lg-3"></div>
+                                                     <div class="col-lg-3">  
+                                                        <button type="submit" class="btn btn-success    btn-block" id="btn_submit">Guardar Pago</button>
+                                                    </div>
+                                                     <div class="col-lg-3">
+                                                         <button type="button" class="btn btn-danger btn-block" id="cancelar_cobro">cancelar</button>
+                                                     </div>
+                                                     <div class="col-lg-3"></div>
+                                                </div>
+                                            
+                                            </form>
+
+                                            </div> <!-- formulario -->
+                                                    <div class="col-lg-1"></div>
+
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+
+                            </div>
+                             
+                        </div>
+                        <div class="col-lg-2"> </div>
+                  </div>
+
+                </div>
+
+            </div>
+        </div>                                                       
+            </div>
+
+  
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+  
+    <footer th:replace="fragmentos/layaout :: footer" ></footer>
+          <script th:src="@{/js/jquery-ui.js}"></script>
+    <script th:src="@{/java-scrip/principal.js}"></script>
+  
+
+        
+</body>
+
+</html>

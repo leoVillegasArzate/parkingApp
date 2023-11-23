@@ -1,0 +1,127 @@
+.border-left-warning {
+    border-left: 0.25rem solid #d1df4e !important;
+  }
+
+  .text-warning {
+    color: #d1df4e !important;
+  }
+  .text-black1  {
+    color: #080801 !important;
+    text-decoration: solid;
+  }
+  .text-purpure  {
+    text-align: left;
+    color: #501cc8 !important;
+    text-decoration: solid;
+  }
+  .icon-md{
+    font-size: 20px;
+  }
+
+  .dia,.mes,.anio,.diaSemana,.de,.del{
+    
+    font-size: 30px;
+    color:  #0a0f0f;
+  
+  }
+
+  .sucursal{
+    font-size: 40px;
+    color:  #0a0f0f;
+  }
+
+
+
+ 
+  .hora{   
+    background-color: #36b9cc !important;
+    border: 2px solid #afc7be!important; 
+    font-weight: bolder; 
+    -webkit-text-stroke: 2px rgba(23, 57, 194, 0.966);
+    font-size: 45px;
+  }
+  .minutos{
+    background-color: #36b9cc !important;
+   border: 2px solid #afc7be!important; 
+    font-weight: bolder; 
+    -webkit-text-stroke: 2px rgba(23, 57, 194, 0.966);
+   font-size: 45px;
+  }
+  .segundos{
+    background-color: #36b9cc !important;
+    border: 2px solid #afc7be!important; 
+    font-weight: bolder; 
+    -webkit-text-stroke: 2px rgba(23, 57, 194, 0.966);
+    font-size: 45px;
+  }
+  
+  .puntos{
+  
+    -webkit-text-stroke: 1px rgba(23, 57, 194, 0.966);
+    font-size: 60px;
+  }
+  
+  .ampm{
+   
+    -webkit-text-stroke: 1px rgba(23, 57, 194, 0.966);
+    font-size: 25px; 
+  }
+  
+  .border-modal {
+   border-left: 0.25rem solid #4e73df !important;
+   border-bottom: 0.25rem solid #4e73df !important;
+  }
+
+  .border-modal_succes {
+    border-left: 0.25rem solid #1cc88a !important;
+   border-bottom: 0.25rem solid #1cc88a !important;
+  }
+
+  .border-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+   border-bottom: 0.25rem solid #f6c23e !important;
+  }
+
+  .text-black-border  {
+    text-align: left;
+    color: #080801 !important;
+    text-decoration: solid;
+  }
+
+
+  .padin-top {
+    padding-bottom: 3rem !important;
+  }
+
+  .reloj{
+    background: linear-gradient( #faffff9a,#d9d9da) !important; 
+    }
+
+  .a{
+    background: #f8f9fc !important; 
+  }
+
+  .boderd-text{
+    -webkit-text-stroke: .9px #283030;
+  }
+  
+    .formulario{
+    
+    font-size: 22px;
+  }
+
+   input  {
+    font-size: 18px !important;
+    color: #080801 !important;
+    text-decoration: solid;
+  }
+
+  #cobrarBoletaje{
+    display: none;
+  }
+  
+  #session{
+   /* display: none;*/
+  }
+
+  

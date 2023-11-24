@@ -25,3 +25,7 @@ git add  --> agregar archivos al repositorio
 git commit -m  --> agregar commit la confirmacion d eun cambio junto a su mensaje de confirmacion
 
 git log  --> muestra el historial de commit 
+
+git reset --soft head~1 --> elimina el  ultimo commit el numero indica el numero de commit que retrocede
+
+  

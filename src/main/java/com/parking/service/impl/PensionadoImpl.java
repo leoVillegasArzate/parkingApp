@@ -46,44 +46,43 @@ public class PensionadoImpl  implements PensionadoInterface{
 	}
 
 	@Override
-	public ResponseApp savePensionado(String pensionado) {
+	public ResponseApp savePensionado( JsonObject pensionado) {
 		log.info("inicia validacion de datos");
 		String errores="";
 		ResponseApp responseApp = new ResponseApp();
-		JsonObject objPension=null;
+
 		
 		try {
-			
-			objPension= new Gson().fromJson(pensionado, JsonObject.class); 
+			System.out.println("bbbbbbbbbb");
 			 
-			errores=utileria.validaJson(objPension);			
+			errores=utileria.validaJson(pensionado);			
 	        if (!errores.isEmpty() || errores.length()>1) {	        	
 	        	responseApp.setStatus(Constantes.ERROR);
 				responseApp.setMensaje("Un dato viene vacio, Favor de capturar : "+errores );
 				return responseApp;
 			 }else {
-				 if (!utileria.isDouble(objPension.get("otraCantidad").getAsString())) {
+				 if (!utileria.isDouble(pensionado.get("otraCantidad").getAsString())) {
 					 responseApp.setStatus(Constantes.ERROR);
-				     responseApp.setMensaje("No es numero "+objPension.get("otraCantidad").getAsString() );
+				     responseApp.setMensaje("No es numero "+pensionado.get("otraCantidad").getAsString() );
 				    }				 
-				 if (!utileria.isTelefono(objPension.get("otraCantidad").getAsString())) {
+				 if (!utileria.isTelefono(pensionado.get("otraCantidad").getAsString())) {
 					 responseApp.setStatus(Constantes.ERROR);
-				     responseApp.setMensaje("No es importe correcto "+objPension.get("otraCantidad").getAsString() );
+				     responseApp.setMensaje("No es importe correcto "+pensionado.get("otraCantidad").getAsString() );
 				 	return responseApp;
 				}
-				 if (!utileria.rfc(objPension.get("rfc").getAsString())) {
+				 if (!utileria.rfc(pensionado.get("rfc").getAsString())) {
 					 responseApp.setStatus(Constantes.ERROR);
-				     responseApp.setMensaje("No es un rfc correcto "+objPension.get("otraCantidad").getAsString() );
-				 	return responseApp;
-				}
-				 
-				 if (!utileria.rfc(objPension.get("correo").getAsString())) {
-					 responseApp.setStatus(Constantes.ERROR);
-				     responseApp.setMensaje("No es un correo correcto "+objPension.get("otraCantidad").getAsString() );
+				     responseApp.setMensaje("No es un rfc correcto "+pensionado.get("otraCantidad").getAsString() );
 				 	return responseApp;
 				}
 				 
-				 if (pensionasoRepositoryInterface.savePensionado(objPension)) {
+				 if (!utileria.rfc(pensionado.get("correo").getAsString())) {
+					 responseApp.setStatus(Constantes.ERROR);
+				     responseApp.setMensaje("No es un correo correcto "+pensionado.get("otraCantidad").getAsString() );
+				 	return responseApp;
+				}
+				 
+				 if (pensionasoRepositoryInterface.savePensionado(pensionado)) {
 					
 				}
 			 }

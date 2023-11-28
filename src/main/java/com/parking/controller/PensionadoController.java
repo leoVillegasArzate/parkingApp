@@ -6,12 +6,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.parking.models.UserModel;
 import com.parking.service.interfaces.PensionadoInterface;
 import com.parking.utils.Constantes;
@@ -58,14 +60,21 @@ public class PensionadoController {
 		return new Gson().toJson(responseApp);
 	}
 	
-	@GetMapping("/save")
-	public @ResponseBody String savePension( @RequestBody String ParametersRequest) {
+	@PostMapping("/save")
+	public @ResponseBody String savePension( @RequestBody String ParametersRequest,HttpSession session,RedirectAttributes redirectAttributes ) {
 
 		 ResponseApp responseApp= new ResponseApp();
+		 JsonObject pensionado = new  JsonObject();
 		try {
+			if (session.getAttribute("user")==null) {
+				responseApp.setStatus(Constantes.ERROR);
+				responseApp.setMensaje("No se encontro tu usuario en la session");
+			}
+			
+			
 			if (ParametersRequest!=null) {					
-				 
-				pensionadoInterface.savePensionado(ParametersRequest);
+				pensionado =new Gson().fromJson(ParametersRequest, JsonObject.class);
+				pensionadoInterface.savePensionado(pensionado);
 				} else {
 					responseApp.setStatus(Constantes.ERROR);
 					responseApp.setMensaje("No se recibieron datos");

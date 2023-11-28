@@ -12,17 +12,16 @@ $(document).ready(function () {
   $("#cancelar").click(function () {
     cancelar();
   });
-$('#importe').change(function (e) {
-   var valor=$('#importe').val();
-      alert(valor);
-   if (valor==='OtraCantidad') {
-    $("#otraCantidad").val('');
-    $("#otraCantidad").prop("readonly", false);
-   } else {
-    $("#otraCantidad").val(valor);
-    $("#otraCantidad").prop("readonly", true);
-   }
-});
+  $('#importe').change(function (e) {
+    var valor = $('#importe').val();
+    if (valor === 'OtraCantidad') {
+      $("#otraCantidad").val('');
+      $("#otraCantidad").prop("readonly", false);
+    } else {
+      $("#otraCantidad").val(valor);
+      $("#otraCantidad").prop("readonly", true);
+    }
+  });
 
   $("#guardarPensionado input").on("keyup", function (event) {
     var idDelElemento = $(this).attr("id");
@@ -51,31 +50,31 @@ $('#importe').change(function (e) {
       });
     } else {
 
-            if (!/^\d{10}$/.test(jsonData.telefono)) {
-              $("#" + Object.keys(jsonData)[2]).next(".mensaje-error").remove(); // Eliminar mensaje de error anterior (si existe)
-              $("#" +Object.keys(jsonData)[2]).after('<span class="mensaje-error" style="color: red;">No es un formato de Telefono 10 digitos valido </span>');
-              
-            }
-            if (!/^[0-9a-zA-Z]{12,13}$/.test(jsonData.rfc)) {
-              $("#" +Object.keys(jsonData)[3]).next(".mensaje-error").remove(); // Eliminar mensaje de error anterior (si existe)
-              $("#" + Object.keys(jsonData)[3]).after('<span class="mensaje-error" style="color: red;">No cumple con las caracteristicas debe tener como minimo 12 y maximo 13 caracteres </span>');
-              
-            }
+      if (!/^\d{10}$/.test(jsonData.telefono)) {
+        $("#" + Object.keys(jsonData)[2]).next(".mensaje-error").remove(); // Eliminar mensaje de error anterior (si existe)
+        $("#" + Object.keys(jsonData)[2]).after('<span class="mensaje-error" style="color: red;">No es un formato de Telefono 10 digitos valido </span>');
 
-      Swal.fire({
-        title:
-          "Favor de verificar que  los datos ingresados sean los correctos",
-        text: JSON.stringify(jsonData),
-        icon: "info",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Guardar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          savePensionado(JSON.stringify(jsonData));
+      } else {
+        if (!/^[0-9a-zA-Z]{12,13}$/.test(jsonData.rfc)) {
+          $("#" + Object.keys(jsonData)[3]).next(".mensaje-error").remove(); // Eliminar mensaje de error anterior (si existe)
+          $("#" + Object.keys(jsonData)[3]).after('<span class="mensaje-error" style="color: red;">No cumple con las caracteristicas debe tener como minimo 12 y maximo 13 caracteres </span>');
+        } else {
+          Swal.fire({
+            title:
+              "Favor de verificar que  los datos ingresados sean los correctos",
+            text: JSON.stringify(jsonData),
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Guardar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              savePensionado(jsonData);
+            }
+          });
         }
-      });
+      }
     }
   });
 
@@ -149,12 +148,14 @@ function getImportePension() {
   });
 }
 
-function savePensionado(pensionado) {
+function savePensionado(jsonData) {
+	
+	alert(JSON.stringify(jsonData));
   jQuery.ajax({
     url: "/pensionado/save",
     type: "POST",
     dataType: "json",
-    data: pensionado,
+    data:JSON.stringify(jsonData),
     complete: function (xhr, textStatus) {
       console.log("La solicitud se ha completado.");
       console.log("Estado de la solicitud:", textStatus);
@@ -164,7 +165,7 @@ function savePensionado(pensionado) {
       if (json.status == "true") {
         success(json.mensaje);
       } else {
-        error(json.mensaje);
+        errorActualizaPagina(json.mensaje);
       }
     },
     error: function (xhr, textStatus, errorThrown) {

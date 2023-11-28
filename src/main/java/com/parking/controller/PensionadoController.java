@@ -65,6 +65,8 @@ public class PensionadoController {
 
 		 ResponseApp responseApp= new ResponseApp();
 		 JsonObject pensionado = new  JsonObject();
+		 
+		 log.info("inicia save  pension / "+ParametersRequest);
 		try {
 			if (session.getAttribute("user")==null) {
 				responseApp.setStatus(Constantes.ERROR);

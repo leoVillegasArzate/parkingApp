@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,9 +60,59 @@ public class PensionadoController {
 		}				
 		return new Gson().toJson(responseApp);
 	}
+	@GetMapping("/lstPensionados")
+	public @ResponseBody String lstPensionados( HttpSession session) {
+		log.info("Inicia recuperacion de pensionados");
+		 ResponseApp responseApp= new ResponseApp();
+		try {
+			if (session.getAttribute("user")!=null) {					
+				UserModel user =(UserModel) session.getAttribute("user");
+				responseApp=pensionadoInterface.lstPensionados(user.getIdEstacionamiento());				  
+				} else {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recupero usuario de la session");
+				}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseApp.setStatus(Constantes.ERROR);
+			responseApp.setMensaje("ocurrio un error en el servidor "+e.getMessage());
+		}finally {			
+			log.info("Status :: "+responseApp.getStatus()+" | "+responseApp.getMensaje());
+		}				
+		return new Gson().toJson(responseApp);
+	}
+	
+	@GetMapping("/delete/{id}")
+	public @ResponseBody String deletePensionado(@PathVariable("id") String id,HttpSession session) {
+		log.info("Inicia eliminacion de pensionados");
+		 ResponseApp responseApp= new ResponseApp();
+		try {
+			if (session.getAttribute("user")!=null) {									
+				if (id.equals("") || id.isEmpty()) {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recupero el id de pensionado ");
+				} else {
+					responseApp=pensionadoInterface.deletePensionado(id);	
+				}
+							  
+				} else {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recupero usuario de la session");
+				}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseApp.setStatus(Constantes.ERROR);
+			responseApp.setMensaje("ocurrio un error en el servidor "+e.getMessage());
+		}finally {			
+			log.info("Status :: "+responseApp.getStatus()+" | "+responseApp.getMensaje());
+		}				
+		return new Gson().toJson(responseApp);
+	}
 	
 	@PostMapping("/save")
-	public @ResponseBody String savePension( @RequestBody String ParametersRequest,HttpSession session,RedirectAttributes redirectAttributes ) {
+	public @ResponseBody String savePension( @RequestBody String ParametersRequest,HttpSession session) {
 
 		 ResponseApp responseApp= new ResponseApp();
 		 JsonObject pensionado = new  JsonObject();
@@ -70,13 +121,13 @@ public class PensionadoController {
 		try {
 			if (session.getAttribute("user")==null) {
 				responseApp.setStatus(Constantes.ERROR);
-				responseApp.setMensaje("No se encontro tu usuario en la session");
+				responseApp.setMensaje("Hay nmo existe una session de usuario");
+				return new Gson().toJson(responseApp);
 			}
-			
 			
 			if (ParametersRequest!=null) {					
 				pensionado =new Gson().fromJson(ParametersRequest, JsonObject.class);
-				pensionadoInterface.savePensionado(pensionado);
+				responseApp=pensionadoInterface.savePensionado(pensionado);
 				} else {
 					responseApp.setStatus(Constantes.ERROR);
 					responseApp.setMensaje("No se recibieron datos");
@@ -91,4 +142,61 @@ public class PensionadoController {
 		}				
 		return new Gson().toJson(responseApp);
 	}
+    
+	@GetMapping("/getMesesPAgo/{id}")
+	public  @ResponseBody String getMesesPAgo(@PathVariable("id") String id,HttpSession session) {
+		log.info("Inicia recuperacion de get Meses PAgo por id :: "+id);
+		 ResponseApp responseApp= new ResponseApp();
+		try {
+			if (session.getAttribute("user")!=null) {									
+				if (id.equals("") || id.isEmpty()) {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recupero el id de pensionado ");
+				} else {
+					responseApp=pensionadoInterface.getMesesPendientes(id);	
+				}
+							  
+				} else {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recupero usuario de la session");
+				}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseApp.setStatus(Constantes.ERROR);
+			responseApp.setMensaje("ocurrio un error en el servidor "+e.getMessage());
+		}finally {			
+			log.info("Status :: "+responseApp.getStatus()+" | "+responseApp.getMensaje());
+		}				
+		return new Gson().toJson(responseApp);
+	}
+	
+	@PostMapping("/savePago")
+	public  @ResponseBody String savePago( @RequestBody String ParametersRequest,HttpSession session) {
+		log.info("Inicia recuperacion de get Meses PAgo por id :: "+ParametersRequest);
+		 ResponseApp responseApp= new ResponseApp();
+		try {
+			if (session.getAttribute("user")!=null) {									
+				if (ParametersRequest.equals("") || ParametersRequest.isEmpty()) {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recibieron pagos ");
+				} else {
+					responseApp=pensionadoInterface.savePago(ParametersRequest);	
+				}
+							  
+				} else {
+					responseApp.setStatus(Constantes.ERROR);
+					responseApp.setMensaje("No se recupero usuario de la session ,favor de actualizar la pagina (f5)");
+				}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseApp.setStatus(Constantes.ERROR);
+			responseApp.setMensaje("ocurrio un error en el servidor "+e.getMessage());
+		}finally {			
+			log.info("Status :: "+responseApp.getStatus()+" | "+responseApp.getMensaje());
+		}				
+		return new Gson().toJson(responseApp);
+	}
+	
 }

@@ -14,7 +14,7 @@ public class Scripts {
  
  public static final String EXISTE_COBRO="SELECT * FROM cobro WHERE id_estacionamiento=? and activo='t'";
  
- public static final String GET_AUTHENTICATION="select es.idestacionamiento,u.idusuario ,e.nombre||e.apellidos as nombreEmpleado ,es.direccion as estacionamiento,u.asignado,\r\n"
+ public static final String GET_AUTHENTICATION="select es.idestacionamiento,u.idusuario ,e.nombre||'  '||e.apellidos as nombreEmpleado ,es.direccion as estacionamiento,u.asignado,\r\n"
 										 		+ "u.username as username,pe.rol\r\n"
 										 		+ "from empleado e \r\n"
 										 		+ "join usuario u    using (idusuario) \r\n"
@@ -73,7 +73,14 @@ public static final String ELIMINAR_ESTACIONAMIENTO="select * from eliminar_esta
 public static final String ELIMINAR_EMPLEADO="select * from eliminar_empleado ( ?)";
 public static final String GET_LISTA_AUTOS="select folio,marca,color,placa,to_char (entrada, 'YYYY-MM-dd HH24:MI:SS') as entrada ,idestacionamiento from auto where status='PENDIENTE' and idestacionamiento=?";
 public static final String  GET_PRECIO_PENSION="select idcobro,importeautochico,importeautogrande from cobro where activo is true and idestacionamiento=?"; 	
-public static final String SAVE_PENSIONADO="INSERT INTO pensionado(nombre, fecharegistro, telefono, correo, calle, colonia, delegacion, marcaauto, placas, color, modelo, importe, idestacionamiento)\r\n"
-										+ "	VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+public static final String SAVE_PENSIONADO="INSERT INTO pensionado(nombre, fecharegistro, telefono, correo, calle, colonia, delegacion, marcaauto, placas, color, modelo, importe, idestacionamiento,activo,rfc) "
+										+ "	VALUES ( ?, TO_TIMESTAMP(?, 'YYYY-MM-dd'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,true,?) returning idpensionado";
+public static final String SAVE_PAGO_PENSION="INSERT INTO public.pagopension(idpensionado, fechapago, mescorrespondiente, importepago, adeudo)\r\n"
+											+ "	VALUES ( ?,  now(),  TO_TIMESTAMP(?, 'YYYY-MM-dd'), ?, ?);";
+public static final String  UPDATE_PENSIONADO="UPDATE pensionado SET  nombre=?, telefono=?, correo=?, calle=?, colonia=?, delegacion=?,placas=?, color=?,rfc=? "
+											+ " WHERE idpensionado=? and idestacionamiento=?; ";
+public static final String  DELETE_PENSIONADO="UPDATE pensionado SET  activo = false  WHERE idpensionado=? and idestacionamiento=? ";
+public static final String PAGO_PENSION="INSERT INTO pagopension(idpensionado, fechapago, mescorrespondiente, importepago, adeudo)\r\n"
+															+ "	VALUES (?, now(),  TO_TIMESTAMP(?, 'YYYY-MM-dd'), ?, 0.00);";
 }
 

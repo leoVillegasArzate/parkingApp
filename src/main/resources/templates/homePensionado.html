@@ -3,6 +3,8 @@
 
 
 <head th:replace="fragmentos/layaout :: head"> </head> <!-- th:insert="fragmentos/head :: head" -->
+<link th:href="@{/estilos/pensionado.css}" rel="stylesheet" type="text/css">
+
 
 
 <body id="page-top">
@@ -24,13 +26,15 @@
 				<!-- AQUI VA TODO EL CONTEWNIDO   -->
 				<div class=" container-fluid">
 					<div class="row">
-						<div class="col-lg-1"></div>
-						<div class="col-lg-10">
+<!-- 						<div class="col-lg-1"></div> -->
+						<div class="col-lg-12">
 							<div class="row">
-								<div class="col-lg-2"></div>
+								<div class="col-lg-1"></div>
 								<div class="col-lg-8">
 									<div class="row">
-										<div class="col-xl-3 col-md-12 mb-4"> </div>
+										<div class="col-xl-3 col-md-12 mb-4"> <strong id="esta"
+												th:text="${session.user.idEstacionamiento}"
+												style="visibility: hidden;"></strong></div>
 
 										<div class="col-xl-6 col-md-12 mb-4">
 											<a type="buttons" href="#" id="newPensionado">
@@ -52,34 +56,66 @@
 												</div>
 											</a>
 										</div>
-										<div class="col-xl-3 col-md-6 mb-4"> </div>
+										<div class="col-xl-3 col-md-6 "> 
+
+										</div>
+										
 									</div>
 								</div>
-								<div class="col-lg-2"></div>
+								<div class="col-lg-3">
+									<div class="row">
+										<div class="col-xl-2 col-md-6 ">
+										</div>
+										<div class="col-xl-10 col-md-6 ">
+											<div class="row">
+												<div class="col-xl-6 col-md-6 ">
+													<button class="btn btn-success btn-block" title="Descargar formato Excel" id="exel"><i class="fas fa-download"></i>&nbsp;&nbsp;<i class="far fa-file-excel"></i></button>
+												</div>
+												<div class="col-xl-6 col-md-6 ">
+													<button class="btn btn-danger btn-block" title="Descargar formato Pdf" id="pdf" ><i class="fas fa-download"></i>&nbsp;&nbsp;<i class="far fa-file-pdf"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<br> <br>
+							<br> 
 							<div class="row" id="tablaPensionado">
 								<div class="col-xl-12 col-md-12 mb-12">
 									<div class="table-responsive" id="tabla">
-										<table class="table table-sm" id="tablaPensionado" style='width:100%'>
+										<table class="table table-sm" id="tablePensionado" style='width:100%'>
 											<thead>
 												<tr>
-													<th>Nombre</th>
-													<th>Auto</th>
+													<th>Nombre
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</th>
+													<th>Auto&nbsp;&nbsp;&nbsp;</th>
 													<th>Placas</th>
+													<!-- 													<th>Modelo</th> -->
 													<th>Importe</th>
-													<th>Adeudo</th>
-													<th>Acciones</th>
+													<th>Fecha Registro</th>
+													<th>Fecha Pago</th>
+													<th> Pago</th>
+													<th>Status</th>
+													<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</th>
 												</tr>
 											</thead>
 											<tfoot>
 												<tr>
-													<th>Nombre</th>
-													<th>Auto</th>
+													<th>Nombre
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</th>
+													<th>Auto&nbsp;&nbsp;&nbsp;</th>
 													<th>Placas</th>
+													<!-- 													<th>Modelo</th> -->
 													<th>Importe</th>
-													<th>Adeudo</th>
-													<th>Acciones</th>
+													<th>Fecha Registro</th>
+													<th>Fecha Pago</th>
+													<th> Pago</th>
+													<th>Status</th>
+													<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</th>
 												</tr>
 											</tfoot>
 										</table>
@@ -88,7 +124,8 @@
 							</div>
 							<div class="row" id="formulario">
 								<div class="col-xl-12 col-md-12 mb-12">
-									<h2 class="text-center text-gray-900">Registro Nuevo Pensionado</h2>
+									<h2 class="text-center text-gray-900">Registro Nuevo Pensionado &nbsp; <strong
+											th:text="${session.user.estacionamiento}"></strong> </h2>
 
 									<form id="guardarPensionado">
 										<!-- Fila 1 -->
@@ -133,8 +170,8 @@
 											</div>
 											<div class="form-group col-md-4">
 												<label for="colonia">Colonia:</label>
-												<input type="text" class="form-control texto" id="colonia" name="colonia"
-													placeholder="Colonia">
+												<input type="text" class="form-control texto" id="colonia"
+													name="colonia" placeholder="Colonia">
 											</div>
 											<div class="form-group col-md-4">
 												<label for="delegacion">Delegación/Municipio:</label>
@@ -168,24 +205,29 @@
 										</div>
 
 										<!-- Fila 5 -->
-										<div class="row">
+										<div class="row" id="referencia">
 											<div class="form-group col-md-6">
 												<label for="importe">Importe Referencia :</label>
-												 <select class="form-control" id="importe" name="importe">
-                                                 </select>
-<!-- 												<input type="text" class="form-control" id="importe" name="importe" -->
-<!-- 													placeholder="Importe" readonly="readonly"> -->
+												<select class="form-control" id="importe" name="importe">
+												</select>
 											</div>
 											<div class="form-group col-md-6">
 												<label for="otraCantidad">Importe de Cobro</label>
 												<input type="text" class="form-control" id="otraCantidad"
 													name="otraCantidad" placeholder="Otra Cantidad">
 											</div>
+											<input type="text" id="idEstacionamiento" name="idEstacionamiento"
+												style="visibility: hidden;">
 										</div>
+
 										<div class="row">
 											<div class="col-lg-3"></div>
-											<div class="col-lg-3"><button type="submit"
-													class="btn btn-primary btn-block">Enviar</button></div>
+											<div class="col-lg-3">
+												<button type="submit" class="btn btn-primary btn-block"
+													id="btn-sumit">Guardar</button>
+												<button type="button" class="btn btn-primary btn-block" id="btn-editar"
+													style="margin-top: 0px;">Editar</button>
+											</div>
 											<div class="col-lg-3"><button type="button" class="btn btn-danger btn-block"
 													id="cancelar">Cancelar</button></div>
 											<div class="col-lg-3"></div>
@@ -195,7 +237,89 @@
 									</form>
 								</div>
 							</div>
-							<div class="col-lg-1"></div>
+							<div class="row" id="pagos">
+								<div class="col-xl-12 col-md-12 mb-12">
+									<div class="row">
+										<div class="col-xl-11 col-md-11">
+											<div class=" h4 text-center text-gray-900 "> <strong>Cobro Pension </strong>
+												<i class="text-primary"><strong id="datosUsuario"></strong> <strong id="idU" style="display: none;"> </strong> </i>
+												<hr>
+											</div>
+										</div>
+										<div class="col-xl-1 col-md-1"><button class="btn btn-danger btn-block"
+												id="cancelarPago">Cancelar</button></div>
+
+									</div>
+									<div class="row">
+										<div class="col-xl-6 col-md-6 ">
+											<div class="text-center "> <strong> Meses Pendiente de Pago</strong></div>
+											<div class="table-responsive">
+												<table class="table table-sm" id="tableMesPagos" style='width:100%'>
+													<thead>
+														<tr>
+															<th>Mes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+															<th>Status&nbsp;&nbsp;&nbsp;</th>
+															<th>Importe&nbsp;&nbsp;&nbsp;</th>
+															<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															</th>
+														</tr>
+													</thead>
+													<tfoot>
+														<tr>
+															<th>Mes&nbsp;&nbsp;&nbsp;&nbsp</th>
+															<th>Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+															<th>Importe&nbsp;&nbsp;&nbsp;</th>
+															<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+														</tr>
+													</tfoot>
+												</table>
+											</div>
+										</div>
+										<div class="col-xl-6 col-md-6">
+											<div class="text-center "> <strong>Pagos Agregados</strong></div>
+											<div class="table-responsive">
+												<table class="table table-sm" id="pagosAgregados" style='width:100%'>
+													<thead>
+														<tr>
+															<th>Mes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+															<th>Status&nbsp;&nbsp;&nbsp;</th>
+															<th>Importe&nbsp;&nbsp;&nbsp;</th>
+															<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															</th>
+														</tr>
+													</thead>
+													<tfoot>
+														<tr>
+															<th>Mes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+															<th>Status&nbsp;&nbsp;&nbsp;</th>
+															<th>Importe&nbsp;&nbsp;&nbsp;</th>
+															<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+															</th>
+														</tr>
+													</tfoot>
+												</table>
+											</div>
+										</div>
+									</div>
+									<br> <hr><br>
+									<div class="row">
+										<div class="col-xl-3 col-md-12"></div>
+										<div class="col-xl-6 col-md-12">
+											 <form class="form-inline" id="guardarCobro">
+												<label for="importeCobro" class="mr-sm-3">Importe a Cobrar:</label>
+												<input type="text" class="form-control mr-sm-3"  placeholder="0.00" id="importeCobro" readonly="readonly">
+												<button type="submit" class="btn btn-primary">Cobrar</button>
+											  </form>
+										</div>
+										<div class="col-xl-3 col-md-12"></div>
+										
+									</div>
+								</div>
+
+
+
+							</div>
+<!-- 							<div class="col-lg-1"></div> -->
 						</div>
 					</div>
 				</div>

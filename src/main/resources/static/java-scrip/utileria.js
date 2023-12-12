@@ -35,6 +35,27 @@ Swal.fire({
 });
 }
 
+
+function info(mensaje){		
+Swal.fire({
+    icon: 'info',  // incono
+    title: 'Mensaje', //titulo de html
+    html:mensaje,
+    confirmButtonColor: '#3085d6',
+	confirmButtonText: 'ok', // verifca que se un ok para cerrar
+	closeOnClickOutside: false, // cierra cuando se pica a fuera
+	closeOnEsc: false,
+	allowOutsideClick: false, // evita es esc
+}).then(function(result) { // uba operacion que no ha sido
+	if (result.isConfirmed) {
+		setTimeout(function() {
+			window.location.reload();
+		}, 200);
+	}
+});
+}
+
+
 function errorActualizaPagina(mensaje){		
 Swal.fire({
     title: 'Operacion Erronea!',
@@ -101,4 +122,54 @@ function validaForm(idForm) {
 	        }
 	    });
 	return error;
+}
+
+
+function obtenerMarcas() {
+	return [
+		"TOYOTA",
+		"HONDA",
+		"FORD",
+		"CHEVROLET",
+		"NISSAN",
+		"BMW",
+		"MERCEDES-BENZ",
+		"AUDI",
+		"VOLKSWAGEN",
+		"JEEP",
+		"HYUNDAI",
+		"MAZDA",
+		"LEXUS",
+		"SUBARU",
+		"KIA",
+		"TESLA",
+		"FERRARI",
+		"PORSCHE",
+		"LAMBORGHINI",
+		"ASTON MARTIN",
+	];
+}
+function getColores() {
+	return [
+		"ROJO",
+		"VERDE",
+		"AZUL",
+		"AMARILLO",
+		"NARANJA",
+		"MORADO",
+		"ROSA",
+		"NEGRO",
+		"BLANCO",
+		"GRIS",
+		"MARRÓN",
+		"CELESTE",
+		"TURQUESA",
+		"VIOLETA",
+		"PLATA",
+		"DORADO",
+		"CIAN",
+		"MAGENTA",
+		"LIMA",
+		"GRANATE"
+	];
 }

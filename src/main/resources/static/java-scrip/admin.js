@@ -807,4 +807,8 @@ function eliminarEmpleado(id) {
 }
 
 
-
+$('#btn-editar').click(function (e) { 
+	
+	alert("hola panfilo");
+	
+});

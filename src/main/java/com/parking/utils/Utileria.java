@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +17,7 @@ import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.parking.models.CobroModel;
@@ -29,8 +33,7 @@ public class Utileria {
 			return false;
 		}
 		}
-	
-	
+		
 	public String getFecha() {
 		Date fechaActual= new Date();
 		return Constantes.FECHA_HORA.format(fechaActual);   //  fecha.format() ;			
@@ -44,17 +47,11 @@ public class Utileria {
 		log.info(" enstancia " + horas + ":" + minutos + ":" + segundos1);
 		return tiempEstancia;
 	}
-	
-	
+
 	public String getEstanciaFraccion(long segundos) {	
 		long horas = (segundos / 3600);
-		long minutos = ((segundos - horas * 3600) / 60);
-		
-
-		
-		 String fraccion = null;
-		 
-		 
+		long minutos = ((segundos - horas * 3600) / 60);			
+		 String fraccion = null;		 		 
 		 if (horas<1) {
 			 fraccion="1 h";			
 		} else {
@@ -71,14 +68,9 @@ public class Utileria {
 		     if (minutos>=46 && minutos<=59) {//4ta fracion que seria una hora mas
 		    	 horas++;
 		    	 fraccion=horas+" h";
-			 }	
-		     
-		     
-		}
-		 
-		 
+			 }			     		     
+		} 
 		 log.info(fraccion);
-
 		return fraccion;
 	}
 	
@@ -218,7 +210,7 @@ public class Utileria {
 		return detalle;
 	}
 	
- public double importe(long horas, long minutos,CobroModel cobro) {
+     public double importe(long horas, long minutos,CobroModel cobro) {
 	   double tarifa =0; 
 		if (horas<1) {
 			 tarifa+=(cobro.getHora());			
@@ -282,5 +274,78 @@ public class Utileria {
 	public boolean isTelefono(String text) {return text.matches("\\d{10}");}
 	public boolean correo(String correo) { return correo.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");}
 	public boolean rfc(String rfc) { return rfc.matches("[a-zA-Z0-9]{12,13}");}
+	
+	public JsonObject GetDias(String ultimoPago,String mesCorrespondiente,double importe) {
+		
+		log.info("ultimo pago : "+ultimoPago +" mes en curso : "+mesCorrespondiente);
+	    JsonObject importeStatus= new JsonObject();
+	
+		LocalDate fechaUltimoPago = LocalDate.parse(ultimoPago,Constantes.FECHA);	
+		LocalDate FechaMesCorrespondiente = LocalDate.now();//parse(mesCorrespondiente,Constantes.FECHA);
+		 // Calcular la diferencia en días
+        long diferenciaEnDias = ChronoUnit.DAYS.between(fechaUltimoPago, FechaMesCorrespondiente);
+
+        if (diferenciaEnDias<22) {			
+        	importeStatus.addProperty("statusPago", "CU");//pago cubierto
+        	importeStatus.addProperty("importePago", 0);//pago cubierto
+		}
+        if (diferenciaEnDias>=23 && diferenciaEnDias<30) {			
+        	importeStatus.addProperty("statusPago", "PA");//pronto pago
+        	importeStatus.addProperty("importePago", importe);
+		}
+        if (diferenciaEnDias>=31) {		
+        	 // Calcular la diferencia en meses
+            Period periodo = Period.between(fechaUltimoPago, FechaMesCorrespondiente);
+            int diferenciaEnMeses = periodo.getMonths();
+        	importeStatus.addProperty("statusPago", "PE");//pago pendiente
+        	importeStatus.addProperty("importePago", (importe*diferenciaEnMeses));//pronto pago
+		}
+       
+		return importeStatus;
+		
+	}
+	
+	public JsonArray getMesesPendientes(String ultimoPago, String mesCorrespondiente, double importe,int idpensionado) {
+
+		log.info("ultimo pago : " + ultimoPago + " mes en curso : " + mesCorrespondiente);
+		JsonObject pagoMeses = null;
+		JsonArray lstPagos = null;
+		pagoMeses = new JsonObject();
+		lstPagos = new JsonArray();
+		LocalDate fechaUltimoPago = LocalDate.parse(ultimoPago, Constantes.FECHA);
+		LocalDate FechaMesCorrespondiente = LocalDate.parse(mesCorrespondiente, Constantes.FECHA);
+		Period periodo = Period.between(fechaUltimoPago, FechaMesCorrespondiente);
+		int diferenciaEnMeses = periodo.getMonths();
+		long diferenciaEnDias=0;
+		pagoMeses.addProperty("mes", ultimoPago);
+		pagoMeses.addProperty("mensaje", "Ultimo pago recibido");
+		pagoMeses.addProperty("statusPago", true);
+		pagoMeses.addProperty("importe", importe);
+		pagoMeses.addProperty("idPensionado", idpensionado);
+		lstPagos.add(pagoMeses);
+			
+		for (int i = 1; i <= diferenciaEnMeses; i++) {
+
+			LocalDate ahora= LocalDate.now();
+			pagoMeses = new JsonObject();
+			fechaUltimoPago = fechaUltimoPago.plusMonths(1);
+			diferenciaEnDias = ChronoUnit.DAYS.between(fechaUltimoPago, ahora);
+			
+			 if (diferenciaEnDias<20) {			
+				 pagoMeses.addProperty("mensaje", "Pago vigente");
+				}else {
+					 pagoMeses.addProperty("mensaje", "Pago pendiente");
+				}
+			pagoMeses.addProperty("mes", fechaUltimoPago.toString());
+			pagoMeses.addProperty("statusPago", false);
+			pagoMeses.addProperty("importe", importe);
+			pagoMeses.addProperty("idPensionado", idpensionado);
+			lstPagos.add(pagoMeses);
+		}
+		
+		log.info("tamanio :: "+lstPagos.size());
+		return lstPagos;
+	}
+
 }
 

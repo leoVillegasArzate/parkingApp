@@ -123,12 +123,26 @@ create table pensionado(
 	modelo int not null,
 	importe numeric(10,2) not null,
 	idestacionamiento integer not null,
+	activo boolean  default 'true' not null,
+	rfc varchar not null,
 	
 	CONSTRAINT pensionado_key primary key (idpensionado),
 	foreign key (idestacionamiento)references estacionamiento (idestacionamiento)
 	
 
 );
+-----------------------------------------------------------------------------------
+
+create table pagoPension (
+	idpagopension serial not null,
+	idpensionado integer not null,
+	fechapago date not null,
+	mescorrespondiente date not null,
+	importepago numeric(10,2) not null,
+	adeudo numeric(10,2) not null,
+	CONSTRAINT pago_pension primary key (idpagopension),
+	foreign key (idpensionado)references pensionado (idpensionado)
+)
 
 
 
